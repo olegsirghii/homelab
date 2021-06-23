@@ -1,4 +1,5 @@
 version: '3.3'
+
 services:
   nextcloud:
     image: nextcloud:latest
@@ -6,24 +7,26 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/Chisinau
+      - TZ=${TZ}
     volumes:
-      - $HOME/dvolumes/nextcloud/config:/config
-      - $HOME/dvolumes/nextcloud/data:/data
+      - ${PATH}/nextcloud/config:/config
+      - ${PATH}/nextcloud/data:/data
     depends_on:
       - mariadb
     restart: unless-stopped
+
   mariadb:
     image: linuxserver/mariadb
     container_name: mariadb
     environment:
       - PUID=1000
       - PGID=1000
-      - MYSQL_ROOT_PASSWORD=6eTb1aNo
-      - TZ=Europe/Chisinau
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=${TZ}
     volumes:
-      - $HOME/dvolumes/mariadb/config:/config
+      - ${PATH}/mariadb/config:/config
     restart: unless-stopped
+
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
     ports:
@@ -31,7 +34,7 @@ services:
       - '80:8080'
       - '443:4443'
     volumes:
-      - '$HOME/dvolumes/nginx-proxy-manager:/config'
+      - '${PATH}/nginx-proxy-manager:/config'
     restart: unless-stopped
     image: jlesage/nginx-proxy-manager
 
@@ -40,8 +43,8 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/Chisinau
-      - SUBDOMAINS=needsrat
-      - TOKEN=5e92a67f-ab8c-40bd-862a-7f09df804b00
+      - TZ=${TZ}
+      - SUBDOMAINS=${SUBDOMAINS}
+      - TOKEN=${TOKEN}
     restart: unless-stopped
     image: linuxserver/duckdns:latest
