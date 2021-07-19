@@ -13,7 +13,7 @@ services:
       - $HOME/dvolumes/nextcloud/config:/config
       - $HOME/dvolumes/nextcloud/data:/data
     depends_on:
-      - mariadb
+      - nextcloud-mariadb
     restart: unless-stopped
 
   nextcloud-mariadb:
