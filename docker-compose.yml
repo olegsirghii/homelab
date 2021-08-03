@@ -4,7 +4,7 @@ version: "3.3"
 services:
   nextcloud-app:
     image: nextcloud:latest
-    container_name: nextcloud
+    container_name: nextcloud-app
     environment:
       - PUID=1000
       - PGID=1000
@@ -18,7 +18,7 @@ services:
 
   nextcloud-mariadb:
     image: linuxserver/mariadb
-    container_name: mariadb
+    container_name: nextcloud-mariadb
     environment:
       - PUID=1000
       - PGID=1000
@@ -31,13 +31,16 @@ services:
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
     ports:
-      - "81:8181"
-      - "80:8080"
-      - "443:4443"
+      - "81:81"
+      - "80:80"
+      - "443:443"
+    environment:
+      - DB_SQLITE_FILE: "/data/database.sqlite"
     volumes:
-      - /var/lib/docker/volumes/nginx-proxy-manager:/config
+      - /var/lib/docker/volumes/nginx-proxy-manager:/data
+      - /var/lib/docker/volumes/nginx-proxy-manager-le:/etc/letsencrypt
     restart: unless-stopped
-    image: jlesage/nginx-proxy-manager
+    image: jc21/nginx-proxy-manager:latest
 
   duckdns:
     container_name: duckdns
