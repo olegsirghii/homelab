@@ -49,6 +49,7 @@ services:
       - TOKEN=${TOKEN}
     restart: unless-stopped
     image: linuxserver/duckdns:latest
-# networks:
-#   default:
-#     name: proxy
+
+networks:
+  default:
+    name: proxy
