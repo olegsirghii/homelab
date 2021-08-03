@@ -10,8 +10,8 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - nextcloud-config:/config
-      - nextcloud-data:/data
+      - /var/lib/docker/volumes/nextcloud-config:/config
+      - /var/lib/docker/volumes/nextcloud-data:/data
     depends_on:
       - nextcloud-mariadb
     restart: unless-stopped
@@ -25,7 +25,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - TZ=${TZ}
     volumes:
-      - nextcloud-mariadb:/config
+      - /var/lib/docker/volumes/nextcloud-mariadb:/config
     restart: unless-stopped
 
   nginx-proxy-manager:
@@ -35,7 +35,7 @@ services:
       - "80:8080"
       - "443:4443"
     volumes:
-      - nginx-proxy-manager:/config
+      - /var/lib/docker/volumes/nginx-proxy-manager:/config
     restart: unless-stopped
     image: jlesage/nginx-proxy-manager
 
