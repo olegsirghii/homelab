@@ -42,16 +42,16 @@ services:
     restart: unless-stopped
     image: jc21/nginx-proxy-manager:latest
 
-  duckdns:
-    container_name: duckdns
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - SUBDOMAINS=${SUBDOMAINS}
-      - TOKEN=${TOKEN}
-    restart: unless-stopped
-    image: linuxserver/duckdns:latest
+#  duckdns:
+#    container_name: duckdns
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=${TZ}
+#      - SUBDOMAINS=${SUBDOMAINS}
+#      - TOKEN=${TOKEN}
+#    restart: unless-stopped
+#    image: linuxserver/duckdns:latest
 
 networks:
   default:
