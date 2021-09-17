@@ -42,6 +42,27 @@ services:
     restart: unless-stopped
     image: jc21/nginx-proxy-manager:latest
 
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8080:80/tcp"
+    environment:
+      - TZ=${TZ}
+      - WEBPASSWORD=6eTb1aNo
+    # Volumes store your data between container upgrades
+    volumes:
+      - /var/lib/docker/dvolumes/etc-pihole/:/etc/pihole/
+      - /var/lib/docker/dvolumes/etc-dnsmasq.d/:/etc/dnsmasq.d/
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
 #  duckdns:
 #    container_name: duckdns
 #    environment:
