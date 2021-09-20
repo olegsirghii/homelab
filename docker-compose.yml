@@ -42,6 +42,22 @@ services:
     restart: unless-stopped
     image: jc21/nginx-proxy-manager:latest
 
+  duplicati:
+    image: ghcr.io/linuxserver/duplicati
+    container_name: duplicati
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - CLI_ARGS= #optional
+    volumes:
+      - /var/lib/docker/dvolumes/duplicati-config:/config
+      - /var/lib/docker/dvolumes/duplicati-backups:/backups
+      - /var/lib/docker/dvolumes/duplicati-source:/source
+    ports:
+      - 8200:8200
+    restart: unless-stopped
+
   # pihole:
   #   container_name: pihole
   #   image: pihole/pihole:latest
