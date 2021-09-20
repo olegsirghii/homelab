@@ -53,7 +53,7 @@ services:
     volumes:
       - /var/lib/docker/dvolumes/duplicati-config:/config
       - /var/lib/docker/dvolumes/duplicati-backups:/backups
-      - /var/lib/docker/dvolumes/duplicati-source:/source
+      - ~/:/source
     ports:
       - 8200:8200
     restart: unless-stopped
