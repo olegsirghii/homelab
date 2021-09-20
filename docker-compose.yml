@@ -10,8 +10,8 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - /var/lib/docker/dvolumes/nextcloud-config:/config
-      - /var/lib/docker/dvolumes/nextcloud-data:/data
+      - ~/docker_volumes/nextcloud-config:/config
+      - ~/docker_volumes/nextcloud-data:/data
     depends_on:
       - nextcloud-mariadb
     restart: unless-stopped
@@ -25,7 +25,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - TZ=${TZ}
     volumes:
-      - /var/lib/docker/dvolumes/nextcloud-mariadb:/config
+      - ~/docker_volumes/nextcloud-mariadb:/config
     restart: unless-stopped
 
   nginx-proxy-manager:
@@ -37,8 +37,8 @@ services:
     environment:
       - DB_SQLITE_FILE=/data/database.sqlite
     volumes:
-      - /var/lib/docker/dvolumes/nginx-proxy-manager:/data
-      - /var/lib/docker/dvolumes/nginx-proxy-manager-le:/etc/letsencrypt
+      - ~/docker_volumes/nginx-proxy-manager:/data
+      - ~/docker_volumes/nginx-proxy-manager-le:/etc/letsencrypt
     restart: unless-stopped
     image: jc21/nginx-proxy-manager:latest
 
@@ -51,8 +51,8 @@ services:
       - TZ=${TZ}
       - CLI_ARGS= #optional
     volumes:
-      - /var/lib/docker/dvolumes/duplicati-config:/config
-      - /var/lib/docker/dvolumes/duplicati-backups:/backups
+      - ~/docker_volumes/duplicati-config:/config
+      - ~/docker_volumes/duplicati-backups:/backups
       - /:/source
     ports:
       - 8200:8200
@@ -71,8 +71,8 @@ services:
   #     - WEBPASSWORD=6eTb1aNo
   #   # Volumes store your data between container upgrades
   #   volumes:
-  #     - /var/lib/docker/dvolumes/etc-pihole/:/etc/pihole/
-  #     - /var/lib/docker/dvolumes/etc-dnsmasq.d/:/etc/dnsmasq.d/
+  #     - ~/docker_volumes/etc-pihole/:/etc/pihole/
+  #     - ~/docker_volumes/etc-dnsmasq.d/:/etc/dnsmasq.d/
   #   # Recommended but not required (DHCP needs NET_ADMIN)
   #   #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
   #   cap_add:
