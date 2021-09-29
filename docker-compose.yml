@@ -57,6 +57,17 @@ services:
     ports:
       - 8200:8200
     restart: unless-stopped
+  
+  wol:
+    image: aranajuan/wolweb
+    container_name: wol
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    ports:
+      - 8089:8089
+    restart: unless-stopped  
 
   # pihole:
   #   container_name: pihole
