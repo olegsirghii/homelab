@@ -90,16 +90,16 @@ services:
   #     - NET_ADMIN
   #   restart: unless-stopped
 
-#  duckdns:
-#    container_name: duckdns
-#    environment:
-#      - PUID=1000
-#      - PGID=1000
-#      - TZ=${TZ}
-#      - SUBDOMAINS=${SUBDOMAINS}
-#      - TOKEN=${TOKEN}
-#    restart: unless-stopped
-#    image: linuxserver/duckdns:latest
+  duckdns:
+    container_name: duckdns
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - SUBDOMAINS=${SUBDOMAINS}
+      - TOKEN=${TOKEN}
+    restart: unless-stopped
+    image: linuxserver/duckdns:latest
 
 networks:
   default:
