@@ -9,8 +9,8 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ${HOME}/docker_volumes/nextcloud-config:/config
-      - ${HOME}/docker_volumes/nextcloud-data:/data
+      - /home/ubuntu/docker_volumes/nextcloud-config:/config
+      - /home/ubuntu/docker_volumes/nextcloud-data:/data
     depends_on:
       - mariadb
     restart: unless-stopped
@@ -24,7 +24,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - TZ=${TZ}
     volumes:
-      - ${HOME}/docker_volumes/nextcloud-mariadb:/config
+      - /home/ubuntu/docker_volumes/nextcloud-mariadb:/config
     restart: unless-stopped
 
   nginx-proxy-manager:
@@ -36,8 +36,8 @@ services:
     environment:
       - DB_SQLITE_FILE=/data/database.sqlite
     volumes:
-      - ${HOME}/docker_volumes/nginx-proxy-manager:/data
-      - ${HOME}/docker_volumes/nginx-proxy-manager-le:/etc/letsencrypt
+      - /home/ubuntu/docker_volumes/nginx-proxy-manager:/data
+      - /home/ubuntu/docker_volumes/nginx-proxy-manager-le:/etc/letsencrypt
     restart: unless-stopped
     image: jc21/nginx-proxy-manager:latest
 
