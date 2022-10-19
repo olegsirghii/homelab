@@ -1,10 +1,9 @@
-#Homelab Config
 version: "3.3"
 
 services:
-  nextcloud-app:
+  nextcloud:
     image: nextcloud:latest
-    container_name: nextcloud-app
+    container_name: nextcloud
     environment:
       - PUID=1000
       - PGID=1000
@@ -13,12 +12,12 @@ services:
       - ~/docker_volumes/nextcloud-config:/config
       - ~/docker_volumes/nextcloud-data:/data
     depends_on:
-      - nextcloud-mariadb
+      - mariadb
     restart: unless-stopped
 
-  nextcloud-mariadb:
+  mariadb:
     image: linuxserver/mariadb
-    container_name: nextcloud-mariadb
+    container_name: mariadb
     environment:
       - PUID=1000
       - PGID=1000
@@ -42,54 +41,6 @@ services:
     restart: unless-stopped
     image: jc21/nginx-proxy-manager:latest
 
-  duplicati:
-    image: ghcr.io/linuxserver/duplicati
-    container_name: duplicati
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - CLI_ARGS= #optional
-    volumes:
-      - ~/docker_volumes/duplicati-config:/config
-      - ~/docker_volumes/duplicati-backups:/backups
-      - /:/source
-    ports:
-      - 8200:8200
-    restart: unless-stopped
-  
-  wol:
-    image: aranajuan/wolweb
-    container_name: wol
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    ports:
-      - 8089:8089
-    restart: unless-stopped  
-
-  # pihole:
-  #   container_name: pihole
-  #   image: pihole/pihole:latest
-  #   ports:
-  #     - "53:53/tcp"
-  #     - "53:53/udp"
-  #     - "67:67/udp"
-  #     - "8080:80/tcp"
-  #   environment:
-  #     - TZ=${TZ}
-  #     - WEBPASSWORD=6eTb1aNo
-  #   # Volumes store your data between container upgrades
-  #   volumes:
-  #     - ~/docker_volumes/etc-pihole/:/etc/pihole/
-  #     - ~/docker_volumes/etc-dnsmasq.d/:/etc/dnsmasq.d/
-  #   # Recommended but not required (DHCP needs NET_ADMIN)
-  #   #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
-  #   cap_add:
-  #     - NET_ADMIN
-  #   restart: unless-stopped
-
   duckdns:
     container_name: duckdns
     environment:
@@ -100,7 +51,3 @@ services:
       - TOKEN=${TOKEN}
     restart: unless-stopped
     image: linuxserver/duckdns:latest
-
-networks:
-  default:
-    name: proxy
